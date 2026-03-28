@@ -9,11 +9,13 @@ import Hero from './components/Hero';
 import Menu from './components/Menu';
 import Cart from './components/Cart';
 import McBot from './components/McBot';
+import UserModal from './components/UserModal';
 import { MenuItem, CartItem } from './types';
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
   const handleAddToCart = (item: MenuItem) => {
     setCartItems(prev => {
@@ -34,11 +36,19 @@ export default function App() {
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900">
-      <Navbar cartCount={cartCount} onCartClick={() => setIsCartOpen(true)} />
+      <Navbar 
+        cartCount={cartCount} 
+        onCartClick={() => setIsCartOpen(true)} 
+        onUserClick={() => setIsUserModalOpen(true)}
+      />
       
       <main>
         <Hero />
@@ -51,6 +61,12 @@ export default function App() {
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
+        onClearCart={handleClearCart}
+      />
+      
+      <UserModal 
+        isOpen={isUserModalOpen} 
+        onClose={() => setIsUserModalOpen(false)} 
       />
       
       <McBot />

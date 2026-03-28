@@ -3,9 +3,10 @@ import { ShoppingBag, Menu as MenuIcon, User, MapPin } from 'lucide-react';
 interface NavbarProps {
   cartCount: number;
   onCartClick: () => void;
+  onUserClick: () => void;
 }
 
-export default function Navbar({ cartCount, onCartClick }: NavbarProps) {
+export default function Navbar({ cartCount, onCartClick, onUserClick }: NavbarProps) {
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +40,10 @@ export default function Navbar({ cartCount, onCartClick }: NavbarProps) {
               <span>Locate</span>
             </button>
             
-            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+            <button 
+              onClick={onUserClick}
+              className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+            >
               <User className="w-6 h-6" />
             </button>
             
@@ -55,9 +59,9 @@ export default function Navbar({ cartCount, onCartClick }: NavbarProps) {
               )}
             </button>
             
-            <button className="hidden sm:block bg-[#FFC72C] hover:bg-[#FFC72C]/90 text-black px-6 py-2.5 rounded-full font-bold transition-colors">
+            <a href="#menu" className="hidden sm:flex items-center justify-center bg-[#FFC72C] hover:bg-[#FFC72C]/90 text-black px-6 py-2.5 rounded-full font-bold transition-colors">
               Order Now
-            </button>
+            </a>
           </div>
         </div>
       </div>
